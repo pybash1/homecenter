@@ -1,11 +1,36 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<Welcome />
+  <div class="h-full min-h-screen w-full dark:bg-black dark:text-white">
+    <h2 class="text-4xl font-bold text-center pt-8">Homecenter</h2>
+    <h2 class="dark:text-white/75 text-center pt-2 pb-20">Ananjan's Homelab</h2>
+    <div class="flex justify-between px-40">
+      <div class="flex flex-col gap-4">
+        <h3 class="text-xl font-bold">Currently available services:</h3>
+        <a
+          href="http://arch/admin"
+          class="text-blue-500 underline underline-offset-4"
+          >PiHole (Ad blocking)</a
+        >
+        <a
+          href="http://arch:2283/"
+          class="text-blue-500 underline underline-offset-4">Immich (Photos)</a
+        >
+        <a
+          href="http://arch:8095/"
+          class="text-blue-500 underline underline-offset-4"
+          >Filebrowser (File storage)</a
+        >
+      </div>
+      <div class="flex flex-col gap-4">
+        <h3 class="text-xl font-bold">Upcoming services:</h3>
+        <a class="text-gray-500 underline underline-offset-4 cursor-not-allowed"
+          >Jellyfin (Movies & TV)</a
+        >
+        <a class="text-gray-500 underline underline-offset-4 cursor-not-allowed">Home Assistant (Smart Home)</a>
+      </div>
+    </div>
+  </div>
 </Layout>

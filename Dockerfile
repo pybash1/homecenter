@@ -1,13 +1,9 @@
-FROM oven/bun AS runtime
+FROM oven/bun AS build
 WORKDIR /app
-
 COPY . .
-
-RUN bun install
+RUN bun i
 RUN bun run build
 
-ENV HOST=0.0.0.0
-ENV PORT=80
+FROM httpd:2.4 AS runtime
+COPY --from=build /app/dist /usr/local/apache2/htdocs/
 EXPOSE 80
-
-CMD bun ./dist/server/entry.js

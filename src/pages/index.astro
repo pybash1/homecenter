@@ -1,5 +1,25 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const ports = {
+  pihole: { port: 81, path: "admin" },
+  immich: 2283,
+  filebrowser: 8095,
+  homeassistant: 8123,
+  jellyfin: 8096,
+  prowlarr: 9696,
+  radarr: 7878,
+  sonarr: 8989,
+  jellyseerr: 5055,
+};
+const status: { [key: string]: number } = {};
+
+for (const [service, port] of Object.entries(ports)) {
+  const res = await fetch(
+    `http://100.69.25.3:${typeof port === "number" ? port : port.port}/${typeof port === "number" ? "" : port.path}`
+  );
+  status[service] = res.status;
+}
 ---
 
 <Layout>
@@ -12,46 +32,68 @@ import Layout from "../layouts/Layout.astro";
         <a
           href="http://100.69.25.3:81/admin"
           class="text-blue-500 underline underline-offset-4"
-          >PiHole (Ad blocking)</a
+          >PiHole (Ad blocking) <span
+            class={`${status.pihole === 200 ? "bg-green-500" : "bg-red-500"} rounded-full h-2 w-2 inline-block`}
+          ></span></a
         >
         <a
           href="http://photos.brill-liberty.ts.net"
-          class="text-blue-500 underline underline-offset-4">Immich (Photos)</a
+          class="text-blue-500 underline underline-offset-4"
+          >Immich (Photos) <span
+            class={`${status.immich === 200 ? "bg-green-500" : "bg-red-500"} rounded-full h-2 w-2 inline-block`}
+          ></span></a
         >
         <a
           href="http://files.brill-liberty.ts.net"
           class="text-blue-500 underline underline-offset-4"
-          >Filebrowser (File storage)</a
+          >Filebrowser (File storage) <span
+            class={`${status.filebrowser === 200 ? "bg-green-500" : "bg-red-500"} rounded-full h-2 w-2 inline-block`}
+          ></span></a
         >
         <a
           href="http://ha.brill-liberty.ts.net"
           class="text-blue-500 underline underline-offset-4"
-          >Home Assistant (Smart home)</a
+          >Home Assistant (Smart home) <span
+            class={`${status.homeassistant === 200 ? "bg-green-500" : "bg-red-500"} rounded-full h-2 w-2 inline-block`}
+          ></span></a
         >
         <a
           href="http://media.brill-liberty.ts.net/"
           class="text-blue-500 underline underline-offset-4"
-          >Jellyfin (Movies & TV)</a
+          >Jellyfin (Movies & TV) <span
+            class={`${status.jellyfin === 200 ? "bg-green-500" : "bg-red-500"} rounded-full h-2 w-2 inline-block`}
+          ></span></a
         >
       </div>
       <div class="flex flex-col gap-4">
         <h3 class="text-xl font-bold">Internal services:</h3>
         <a
           href="http://prowlarr.brill-liberty.ts.net"
-          class="text-blue-500 underline underline-offset-4">Prowlarr</a
+          class="text-blue-500 underline underline-offset-4"
+          >Prowlarr <span
+            class={`${status.prowlarr === 200 ? "bg-green-500" : "bg-red-500"} rounded-full h-2 w-2 inline-block`}
+          ></span></a
         >
         <a
           href="http://radarr.brill-liberty.ts.net"
-          class="text-blue-500 underline underline-offset-4">Radarr</a
+          class="text-blue-500 underline underline-offset-4"
+          >Radarr <span
+            class={`${status.radarr === 200 ? "bg-green-500" : "bg-red-500"} rounded-full h-2 w-2 inline-block`}
+          ></span></a
         >
         <a
           href="http://sonarr.brill-liberty.ts.net/"
-          class="text-blue-500 underline underline-offset-4">Sonarr</a
+          class="text-blue-500 underline underline-offset-4"
+          >Sonarr <span
+            class={`${status.sonarr === 200 ? "bg-green-500" : "bg-red-500"} rounded-full h-2 w-2 inline-block`}
+          ></span></a
         >
         <a
           href="http://requests.brill-liberty.ts.net/"
           class="text-blue-500 underline underline-offset-4"
-          >Jellyseerr</a
+          >Jellyseerr <span
+            class={`${status.jellyseerr === 200 ? "bg-green-500" : "bg-red-500"} rounded-full h-2 w-2 inline-block`}
+          ></span></a
         >
       </div>
     </div>
